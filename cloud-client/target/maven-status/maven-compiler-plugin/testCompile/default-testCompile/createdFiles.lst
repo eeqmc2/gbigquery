@@ -1,0 +1,4 @@
+com\example\bigquery\SimpleAppIT.class
+com\example\bigquery\QuickstartSampleIT.class
+com\example\bigquery\QueryParametersSampleIT.class
+com\example\bigquery\QuerySampleIT.class

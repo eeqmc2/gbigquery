@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "corded-vim-168917",
+  "private_key_id": "82899cdc90223afa6777047a357e88728ac6f556",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC7mi/azVMSeyhQ\ntY4oJj21FZzLeIpfCFSd7e5cZgWLc5zbJgJd9Sks6lKRTwTyluCBLAiXeOsxu/Bp\nIXC0GTc3aYQ70MhcII1kLCwJzpOP0HnjuxNPxVCfc4qwNw+376J4dEWGIDsxHACs\nC113sSNbpdTqdcpe3YtTKPnLQgzaN2O/Mj8RFtSy85eeQVMzupyYabjDjKY1seuU\nTqKiS/M0xo0j95n/3XmA1syQAz6iMp1DYyZKCy8RztO1ZuHnylRrW7tkdZj+qx5i\nbh16DFtRycOObUlhdlILd18KLn0Oj654F6ykDCZciPXF5R9R+ZxjPE5cZ/Rei1hL\nYBiD52z3AgMBAAECggEAC1ylZ6cwz/k6h1d/l789Kdb4azr5Mmk9lV+1ec4fVC35\nLYKfTmkh3cZb9XtSLY5lZB1dGy4ScdgpPCIaLSYrzxoqYo8HW3Zd6de3sROxodpP\n+jK4fYfR6rOjjimU36B5TWSerfwMvwbW+ZR/TCz5GxIE6Pr0+eA0EczKWCeUwgXR\n1CHXMrTahGT5cWI0qVhMR6SaZHhaqRs0IKoBWEar5dif6ykXDDRs3PbGqzgihgai\nu+SXcGMg8nZIpRxVFNczKXdxUY/BacMcvZF5ANHhUUlkPX5mhfa1UPEt7lWbsuX5\nP8IUNT6+gZvnP0e7zJ91mC6nP94dY92N4YFaEgiR6QKBgQDqnMuCBySCnUOaEfmP\nTiRwxQv1T/rEjhn38JmHNR4GrY3gODzH29Qd0rewzsU5lSZLEMcEuUXLqnlyFTBo\nUSrMd30eeLk70Ko6nm/cpPyZ5WTK15MR40IjATwEztzSmCBbFN0ZexTFxDe6uozR\nccGAY5DswrJWyRfgNPqKevT2uQKBgQDMtE3zQaW0gIyPSdlzXmy2hRXCx76GzV2L\nkjLawrvcOFRDX9L47XPDaNTzGbZ5WbmY8wFkSgjn8IEMvl3ezjZbhlt+S5AkXgfd\nsPPoWERdmnFSLeIz248ulCuJj51BIKn8tcDWsGyYcABsysNVBdYqyqtHNYAWeWi8\nZZsPo36pLwKBgDvWT8VTIwm5KIPEL91P9dVZPGqNwoydHZxyHgYxEv5rB3N3hHEI\n7TnKA5WxtvWvx7t/hPL8egOu8BibtOP2R68sjpnV+pB58ODQhgFFhzONIT7m6pi2\nWKjq6K7lP8bqi94PHTEhhjPGjtwuNjo5BDxFqLHqGmguE8vYV0o4f//pAoGAZ185\n6fihvEgaMxXA+LCbR4RnW8hQn3Q/pAa9JZmnEmtjqe5O9KO8jNZ4ixbV/evgfKti\nbYmxe6cJFC1h6+zIqGlt9JYmASd2423DjfZc98PRLAW9sCBU6tmqLrpWWBgtn08N\nRZ0sCcKthELUZzAeWdekrL4Io9DFojXRGxGeGcMCgYBBDGc9CA9lFYv4alCBagdS\n1zqzdlclwiYYFVejRUhOhBFwP5FZSAVM6CuONPqEY/WcCU2TExregd1M5yb1OIba\noBXjvfqU4AgUmU60YKo2ewBCE3lTEGPy2hn0yfmuGLVw931nbbqoSuPYGAMgtist\nKB7yzYdwTwvOkEOg3DV3kQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "rddas-admin@corded-vim-168917.iam.gserviceaccount.com",
+  "client_id": "103983268648028148491",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/rddas-admin%40corded-vim-168917.iam.gserviceaccount.com"
+}
