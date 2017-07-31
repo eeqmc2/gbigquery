@@ -16,6 +16,10 @@
 
 package com.example.bigquery;
 
+import com.google.api.client.http.FileContent;
+import com.google.api.services.bigquery.model.TableFieldSchema;
+import com.google.api.services.bigquery.model.TableReference;
+import com.google.api.services.bigquery.model.TableSchema;
 import com.google.cloud.bigquery.*;
 
 // [START all]
@@ -23,25 +27,33 @@ import com.google.cloud.bigquery.*;
 import com.google.auth.oauth2.ServiceAccountCredentials;
 import com.google.cloud.bigquery.QueryJobConfiguration;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 // [END imports]
 
 public class SimpleApp {
     public static void main(String... args) throws Exception {
+
+        Schema tableSchema;
+
         // [START create_client]
         // BigQuery bigquery = BigQueryOptions.getDefaultInstance().getService();
         BigQuery bigquery = BigQueryOptions.newBuilder().setProjectId("corded-vim-168917")
                 .setCredentials(ServiceAccountCredentials.fromStream(new FileInputStream("key.json")))
                 .build().getService();
         // [END create_client]
+
+
         // [START run_query]
         QueryJobConfiguration queryConfig =
                 QueryJobConfiguration.newBuilder(
-                        "SELECT * FROM `corded-vim-168917.FX.epl` "
-                                + "WHERE HomeTeam='Man United';")
+                        "SELECT * FROM `corded-vim-168917.FX.colors` "
+                                + "WHERE upper(_English) like '%YELLOW%';")
                         // Use standard SQL syntax for queries.
                         // See: https://cloud.google.com/bigquery/sql-reference/
                         .setUseLegacySql(false)
@@ -75,6 +87,7 @@ public class SimpleApp {
 
             // Print Headers
             List<Field> headers = result.getSchema().getFields();
+            tableSchema = result.getSchema();
             for (Field name : headers) {
                 System.out.print(name.getName() + ",");
             }
@@ -94,7 +107,33 @@ public class SimpleApp {
 
         }
         System.out.print("END");
+        // [END print_results]
+
+
+        // [START upload_query]
+        TableId tableId = TableId.of("corded-vim-168917","FX", "test");
+        // Values of the row to insert
+        Map<String, Object> rowContent = new HashMap<>();
+        rowContent.put("booleanField", false);
+        // Bytes are passed in base64
+        rowContent.put("bytesField", "Cg0NDg0="); // 0xA, 0
+        rowContent.put("integerField", 60); // 0xA, 0// xD, 0xD, 0xE, 0xD in base64
+        // Records are passed as a map
+        Map<String, Object> recordsContent = new HashMap<>();
+        recordsContent.put("stringField", "Hello, World2!");
+        rowContent.put("recordField", recordsContent);
+        InsertAllResponse ins_response = bigquery.insertAll(InsertAllRequest.newBuilder(tableId)
+                .addRow("rowId", rowContent)
+                // More rows can be added in the same RPC by invoking .addRow() on the builder
+                .build());
+        if (response.hasErrors()) {
+            // If any of the insertions failed, this lets you inspect the errors
+            for (Map.Entry<Long, List<BigQueryError>> entry : ins_response.getInsertErrors().entrySet()) {
+                // inspect row error
+            }
+        }
+        // [END upload_query]
     }
-    // [END print_results]
+
 }
 // [END all]
