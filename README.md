@@ -41,3 +41,25 @@ You can then run a given `ClassName` via:
 [2]: https://cloud.google.com/bigquery
 [3]: https://java.com
 
+
+
+## Useful Links
+
+Streaming insert examples
+- https://cloud.google.com/bigquery/streaming-data-into-bigquery#bigquery-stream-data-java
+
+StackoverFlow Google BigQuery Forum
+- https://stackoverflow.com/questions/tagged/java+google-bigquery
+
+Simba ODBC Drivers for Google BigQuery
+- https://cloud.google.com/bigquery/partners/simba-drivers/
+
+Google Cloud Platform Pricing Calculator
+- https://cloud.google.com/products/calculator/
+
+BigQuery Client Libraries
+- https://cloud.google.com/bigquery/docs/reference/libraries
+
+REST API Reference
+- https://cloud.google.com/bigquery/docs/reference/rest/v2/
+
