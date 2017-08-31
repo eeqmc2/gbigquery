@@ -16,43 +16,35 @@
 
 package com.example.bigquery;
 
-import com.google.api.client.http.FileContent;
-import com.google.api.services.bigquery.model.TableFieldSchema;
-import com.google.api.services.bigquery.model.TableReference;
-import com.google.api.services.bigquery.model.TableSchema;
-import com.google.cloud.bigquery.*;
-
 // [START all]
 // [START imports]
 import com.google.auth.oauth2.ServiceAccountCredentials;
-import com.google.cloud.bigquery.QueryJobConfiguration;
+import com.google.cloud.bigquery.*;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.*;
 // [END imports]
 
 public class SimpleApp {
+
+    private static final String projectId = "corded-vim-168917";
+    private static final String datasetName = "motor_show";
+
     public static void main(String... args) throws Exception {
 
-        Schema tableSchema;
 
-        // [START create_client]
+        // ----------------- [START create_client]
         // BigQuery bigquery = BigQueryOptions.getDefaultInstance().getService();
-        BigQuery bigquery = BigQueryOptions.newBuilder().setProjectId("corded-vim-168917")
+        BigQuery bigquery = BigQueryOptions.newBuilder().setProjectId(projectId)
                 .setCredentials(ServiceAccountCredentials.fromStream(new FileInputStream("key.json")))
                 .build().getService();
-        // [END create_client]
+        // -----------------  [END create_client]
 
 
-        // [START run_query]
+        // ----------------- [START run_query]
         QueryJobConfiguration queryConfig =
                 QueryJobConfiguration.newBuilder(
-                        "SELECT * FROM `corded-vim-168917.FX.colors` "
+                        "SELECT * FROM `corded-vim-168917.GBQ_DS.COLORS` "
                                 + "WHERE upper(_English) like '%YELLOW%';")
                         // Use standard SQL syntax for queries.
                         // See: https://cloud.google.com/bigquery/sql-reference/
@@ -77,9 +69,10 @@ public class SimpleApp {
 
         // Get the results.
         QueryResponse response = bigquery.getQueryResults(jobId);
-        // [END run_query]
+        // -----------------  [END run_query]
 
-        // [START print_results]
+
+        // -----------------  [START print_results]
         QueryResult result = response.getResult();
 
         // Print all pages of the results.
@@ -87,7 +80,6 @@ public class SimpleApp {
 
             // Print Headers
             List<Field> headers = result.getSchema().getFields();
-            tableSchema = result.getSchema();
             for (Field name : headers) {
                 System.out.print(name.getName() + ",");
             }
@@ -103,36 +95,72 @@ public class SimpleApp {
                 }
                 result = result.getNextPage();
             }
-
-
         }
-        System.out.print("END");
-        // [END print_results]
+        System.out.println("END");
+        // -----------------  [END print_results]
 
 
-        // [START upload_query]
-        TableId tableId = TableId.of("corded-vim-168917","FX", "test");
+        // -----------------  [START create a dataset]
+        DatasetInfo datasetInfo = DatasetInfo.newBuilder(datasetName).build();
+        // Creates the dataset
+        try {
+            Dataset dataset = bigquery.create(datasetInfo);
+            System.out.printf("Dataset %s created.%n", dataset.getDatasetId().getDataset());
+        } catch (BigQueryException ex) {
+            System.out.printf("%s%n", ex.getMessage());
+        }
+        // -----------------  [END create a dataset]
+
+
+        // -----------------  [START create a data table]
+        String tableName = UUID.randomUUID().toString().replace("-","_");
+        //String tableName = "cars";
+        //Boolean deleted = bigquery.delete(datasetName, tableName);
+        TableId tableId = TableId.of(projectId, datasetName, tableName);
+
+        // Table schema definition
+        Schema schema = Schema.of(
+                Field.of("year", Field.Type.integer()),
+                Field.of("make", Field.Type.string()),
+                Field.of("model", Field.Type.string()),
+                Field.of("dealer", Field.Type.record(
+                        Field.of("name", Field.Type.string()),
+                        Field.of("address", Field.Type.string()),
+                        Field.of("country", Field.Type.string())))
+        );
+
+        TableDefinition tableDefinition = StandardTableDefinition.of(schema);
+        TableInfo tableInfo = TableInfo.newBuilder(tableId, tableDefinition).build();
+        Table newTable = bigquery.create(tableInfo);
+        // -----------------  [END create a data table]
+
+
+        // -----------------  [START upload_data]
+
         // Values of the row to insert
         Map<String, Object> rowContent = new HashMap<>();
-        rowContent.put("booleanField", false);
-        // Bytes are passed in base64
-        rowContent.put("bytesField", "Cg0NDg0="); // 0xA, 0
-        rowContent.put("integerField", 60); // 0xA, 0// xD, 0xD, 0xE, 0xD in base64
+        rowContent.put("year", 2002);
+        rowContent.put("make", "ACURA");
+        rowContent.put("model", "NSX");
+
         // Records are passed as a map
         Map<String, Object> recordsContent = new HashMap<>();
-        recordsContent.put("stringField", "Hello, World2!");
-        rowContent.put("recordField", recordsContent);
-        InsertAllResponse ins_response = bigquery.insertAll(InsertAllRequest.newBuilder(tableId)
+        recordsContent.put("name", "Sunning Motors Ltd");
+        recordsContent.put("address", "5-7 Yuen Shun Circuit, Sha Tin");
+        recordsContent.put("country", "Hong Kong");
+        rowContent.put("dealer", recordsContent);
+
+        InsertAllResponse ins_response = bigquery.insertAll(InsertAllRequest.newBuilder(newTable.getTableId())
                 .addRow("rowId", rowContent)
                 // More rows can be added in the same RPC by invoking .addRow() on the builder
                 .build());
-        if (response.hasErrors()) {
+        if (ins_response.hasErrors()) {
             // If any of the insertions failed, this lets you inspect the errors
             for (Map.Entry<Long, List<BigQueryError>> entry : ins_response.getInsertErrors().entrySet()) {
                 // inspect row error
             }
         }
-        // [END upload_query]
+        // -----------------  [END upload_data]
     }
 
 }

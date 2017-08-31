@@ -1,0 +1,13 @@
+
+Preparing Data for Loading (Normalised vs Denormalised vs Nested Schema)
+https://cloud.google.com/bigquery/preparing-data-for-loading
+
+
+Google Cloud SD Documentation
+https://cloud.google.com/sdk/docs/
+
+Google Cloud Client Libraries (Go, Java, Node.js, Python, PHP, C#)
+https://cloud.google.com/apis/docs/cloud-client-libraries
+
+Big Query Command Line Tool
+https://cloud.google.com/bigquery/quickstart-command-line
