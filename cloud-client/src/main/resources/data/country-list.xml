@@ -1,0 +1,32 @@
+<p:myDummyDataSett>
+    <SetLevelProperties>
+        <Name>country</Name>
+        <Description>Country's capital city</Description>
+        <Status>LIVE</Status>
+    </SetLevelProperties>
+    <RefDataValue>
+        <country>Australia</country>
+        <capital>Canberra</capital>
+        <type>countryCapital</type>
+    </RefDataValue>
+    <RefDataValue>
+        <country>India</country>
+        <capital>New Delhi</capital>
+        <type>countryCapital</type>
+    </RefDataValue>
+    <RefDataValue>
+        <country>China</country>
+        <capital>Beijing</capital>
+        <type>countryCapital</type>
+    </RefDataValue>
+    <RefDataValue>
+        <country>United Kingdom</country>
+        <capital>London</capital>
+        <type>countryCapital</type>
+    </RefDataValue>
+    <RefDataValue>
+        <country>Spain</country>
+        <capital>Madrid</capital>
+        <type>countryCapital</type>
+    </RefDataValue>
+</p:myDummyDataSett>
